@@ -12,7 +12,6 @@ import wolox.training.repositories.BookRepository;
 @RequestMapping("/api/books")
 public class BooksController {
 
-
     @Autowired
     private BookRepository bookRepository;
 
