@@ -25,9 +25,13 @@ public class User {
 
     public User() {}
 
-    public long getId() { return id; }
+    public long getId() {
+        return id;
+    }
 
-    public String getUsername() { return username; }
+    public String getUsername() {
+        return username;
+    }
 
     public String getName() {
         return name;
@@ -37,9 +41,13 @@ public class User {
         return birthdate;
     }
 
-    public List<Book> getBooks() { return books; }
+    public List<Book> getBooks() {
+        return books;
+    }
 
-    public void setId(long id) { this.id = id; }
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public void setUsername(String username) {
         this.username = username;
