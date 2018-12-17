@@ -2,7 +2,6 @@ package wolox.training.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -22,7 +21,7 @@ public class User {
     private LocalDate birthdate;
 
     @OneToMany(mappedBy = "user")
-    private List<Book> books;
+    private List<Book> books;
 
     public User() {}
 
