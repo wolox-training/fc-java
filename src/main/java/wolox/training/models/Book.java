@@ -38,7 +38,7 @@ public class Book {
     private String isbn;
 
     @ManyToOne
-    @JoinColumn(name="library_id")
+    @JoinColumn(name="user_id")
     private User user;
 
     public Book() {}
