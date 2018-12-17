@@ -1,13 +1,9 @@
 package wolox.training.models;
 
-import org.springframework.data.annotation.Id;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class User {
@@ -25,16 +21,14 @@ public class User {
     @Column(nullable = false)
     private LocalDate birthdate;
 
-    @Column(nullable = false)
-    private Collection<Book> books;
+    @OneToMany(mappedBy = "user")
+    private List<Book> books;
 
-    public long getId() {
-        return id;
-    }
+    public User() {}
 
-    public String getUsername() {
-        return username;
-    }
+    public long getId() { return id; }
+
+    public String getUsername() { return username; }
 
     public String getName() {
         return name;
@@ -44,9 +38,23 @@ public class User {
         return birthdate;
     }
 
-    public Collection<Book> getBooks() {
-        return books;
+    public List<Book> getBooks() { return books; }
+
+    public void setId(long id) { this.id = id; }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public User() {}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
 }
