@@ -2,7 +2,6 @@ package wolox.training.repositories;
 
 import org.springframework.data.repository.Repository;
 import wolox.training.models.Book;
-
 import java.util.List;
 import java.util.Optional;
 
