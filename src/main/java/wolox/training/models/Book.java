@@ -1,10 +1,8 @@
 package wolox.training.models;
 
-
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
-
 
 @Entity
 public class Book {
