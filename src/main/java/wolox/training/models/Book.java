@@ -1,5 +1,7 @@
 package wolox.training.models;
 
+import org.springframework.data.annotation.Id;
+
 import javax.persistence.*;
 
 @Entity
@@ -32,6 +34,10 @@ public class Book {
 
     @Column(nullable = false)
     private String isbn;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
     public Book() {}
 
