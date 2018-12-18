@@ -46,17 +46,4 @@ public class UsersController {
         return userRepository.save(user);
     }
 
-//    @PostMapping("/{userId}/books/{bookId}")
-//    public User addBook(@PathVariable Long userId, @PathVariable Long bookId) {
-//        return userRepository.findById(userId);
-//    }
-
-    @GetMapping("/{userId}/books/{bookId}")
-    public User getBook(@PathVariable Long userId, @PathVariable Long bookId) {
-        User user = userRepository.findById(userId)
-                        .map((user1)->
-                                user1 )
-                        .orElseThrow(()-> new UserNotFoundException(userId));
-        return user;
-    }
 }
