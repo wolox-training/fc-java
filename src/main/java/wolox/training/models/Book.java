@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 
+>>>>>>> master
 @Entity
 public class Book {
 
