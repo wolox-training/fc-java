@@ -1,8 +1,6 @@
 package wolox.training.models;
 
-
 import javax.persistence.*;
-
 
 @Entity
 public class Book {
