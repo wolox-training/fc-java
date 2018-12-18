@@ -21,29 +21,42 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
-    public Book findOne(@PathVariable Long id) {
+    public User findOne(@PathVariable Long id) {
         return userRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(()-> new UserNotFoundException(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book create(@RequestBody User user) {
+    public User create(@RequestBody User user) {
         return userRepository.save(user);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         userRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(()-> new UserNotFoundException(id));
         userRepository.deleteById(id);
     }
 
     @PutMapping("/{id}")
-    public Book updateBook(@RequestBody User user, @PathVariable Long id) {
+    public User updateUser(@RequestBody User user, @PathVariable Long id) {
         userRepository.findById(id)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(()-> new UserNotFoundException(id));
         return userRepository.save(user);
     }
 
+//    @PostMapping("/{userId}/books/{bookId}")
+//    public User addBook(@PathVariable Long userId, @PathVariable Long bookId) {
+//        return userRepository.findById(userId);
+//    }
+
+    @GetMapping("/{userId}/books/{bookId}")
+    public User getBook(@PathVariable Long userId, @PathVariable Long bookId) {
+        User user = userRepository.findById(userId)
+                        .map((user1)->
+                                user1 )
+                        .orElseThrow(()-> new UserNotFoundException(userId));
+        return user;
+    }
 }

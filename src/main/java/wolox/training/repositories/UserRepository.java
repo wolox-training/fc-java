@@ -13,7 +13,7 @@ public interface UserRepository extends Repository<User, Long> {
 
     Optional<User> findById(Long id);
 
-    Book save(User user);
+    User save(User user);
 
     void deleteById(Long id);
 }
