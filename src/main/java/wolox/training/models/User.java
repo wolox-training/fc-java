@@ -64,7 +64,6 @@ public class User {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
-<<<<<<< HEAD
 
     public void addBook(Book book) {
         this.books.add(book);
@@ -73,6 +72,4 @@ public class User {
     public void removeBook(Book book) {
         this.books.remove(book);
     }
-=======
->>>>>>> master
 }
