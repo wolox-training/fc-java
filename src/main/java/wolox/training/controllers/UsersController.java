@@ -7,6 +7,8 @@ import wolox.training.exceptions.UserNotFoundException;
 import wolox.training.models.Book;
 import wolox.training.models.User;
 import wolox.training.repositories.UserRepository;
+import wolox.training.repositories.BookRepository;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -46,4 +48,19 @@ public class UsersController {
         return userRepository.save(user);
     }
 
+    @PostMapping("users/{id}/books")
+    public User updateUser(@RequestBody Book book, @PathVariable Long id) {
+        User user = userRepository.findById(id)
+                        .orElseThrow(() -> new UserNotFoundException(id));
+        user.addBook(book);
+    }
+
+    @GetMapping("users/{userId}/books/{bookId}")
+    public User updateUser(@PathVariable Long userId, @PathVariable Long bookId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException(userId));
+        user.addBook(book);
+    }
 }
