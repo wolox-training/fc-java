@@ -65,6 +65,6 @@ public class UsersController {
                 .orElseThrow(() -> new UserNotFoundException(userId));
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotFoundException(userId));
-        user.addBook(book);
+        user.removeBook(book);
     }
 }
