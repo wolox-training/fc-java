@@ -1,7 +1,6 @@
 package wolox.training.repositories;
 
 import org.springframework.data.repository.Repository;
-import wolox.training.models.Book;
 import wolox.training.models.User;
 
 import java.util.Optional;
@@ -13,7 +12,7 @@ public interface UserRepository extends Repository<User, Long> {
 
     Optional<User> findById(Long id);
 
-    Book save(User user);
+    User save(User user);
 
     void deleteById(Long id);
 }
