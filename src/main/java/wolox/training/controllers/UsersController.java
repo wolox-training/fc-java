@@ -2,7 +2,9 @@ package wolox.training.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import wolox.training.exceptions.BookAlreadyOwnedException;
 import wolox.training.exceptions.BookNotFoundException;
 import wolox.training.exceptions.UserNotFoundException;
 import wolox.training.models.Book;
@@ -53,10 +55,15 @@ public class UsersController {
     }
 
     @PostMapping("users/{id}/books")
-    public void addBook(@RequestBody Book book, @PathVariable Long id) {
+    public ResponseEntity<User> addBook(@RequestBody Book book, @PathVariable Long id) {
         User user = userRepository.findById(id)
                         .orElseThrow(() -> new UserNotFoundException(id));
-        user.addBook(book);
+        try {
+            user.addBook(book);
+        } catch (BookAlreadyOwnedException err) {
+            return new ResponseEntity(err.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("users/{userId}/books/{bookId}")
@@ -65,6 +72,6 @@ public class UsersController {
                 .orElseThrow(() -> new UserNotFoundException(userId));
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotFoundException(userId));
-        user.addBook(book);
+        user.removeBook(book);
     }
 }
