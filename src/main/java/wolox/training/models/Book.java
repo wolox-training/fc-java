@@ -1,6 +1,6 @@
 package wolox.training.models;
 
-import org.springframework.data.annotation.Id;
+import com.google.common.base.Preconditions;
 
 import javax.persistence.*;
 
@@ -86,30 +86,30 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = Preconditions.checkNotNull(title, "Title cannot be empy");
     }
 
     public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+        this.subtitle = Preconditions.checkNotNull(subtitle, "Subtitle cannot be empy");
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        this.author = Preconditions.checkNotNull(author, "Author cannot be empy");
     }
 
     public void setPublisher(String publisher) {
-        this.publisher = publisher;
+        this.publisher = Preconditions.checkNotNull(publisher, "Publisher cannot be empy");
     }
 
     public void setYear(String year) {
-        this.year = year;
+        this.year = Preconditions.checkNotNull(year, "Year cannot be empy");
     }
 
     public void setPages(Integer pages) {
-        this.pages = pages;
+        this.pages = Preconditions.checkNotNull(pages, "Pages cannot be empy");
     }
 
     public void setIsbn(String isbn) {
-        this.isbn = isbn;
+        this.isbn = Preconditions.checkNotNull(isbn, "isbn cannot be empy");
     }
 }
