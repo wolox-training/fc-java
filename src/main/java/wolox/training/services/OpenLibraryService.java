@@ -39,12 +39,12 @@ public class OpenLibraryService extends ApiService {
             new_book.setIsbn(isbn);
             JSONArray authors = book_info.getJSONArray("authors");
             for(Object author: authors){
-                authors_concatenated = authors_concatenated + ((JSONObject)author).getString("name");
+                authors_concatenated += ((JSONObject)author).getString("name") + ".";
             }
             new_book.setAuthor(authors_concatenated);
             JSONArray publishers = book_info.getJSONArray("publishers");
             for(Object publisher: publishers){
-                publishers_concatenated = publishers_concatenated + ((JSONObject)publisher).getString("name");
+                publishers_concatenated += ((JSONObject)publisher).getString("name") + ".";
             }
             new_book.setPublisher(publishers_concatenated);
             return new_book;
