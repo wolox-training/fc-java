@@ -2,10 +2,12 @@ package wolox.training.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wolox.training.exceptions.BookNotFoundException;
 import wolox.training.models.Book;
 import wolox.training.repositories.BookRepository;
+import wolox.training.services.OpenLibraryService;
 
 
 @RestController
@@ -14,6 +16,9 @@ public class BooksController {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private OpenLibraryService openLibraryService;
 
     @GetMapping
     public Iterable findAll() {
@@ -45,4 +50,18 @@ public class BooksController {
                 .orElseThrow(()-> new BookNotFoundException(id));
         return bookRepository.save(book);
     }
+
+    @GetMapping("/isbn/{isbn}")
+    public ResponseEntity<Book> getOrCreateByIsbn(@PathVariable String isbn) {
+        Book book = bookRepository.findByIsbn(isbn);
+        if (book == null) {
+            book = openLibraryService.bookInfo(isbn);
+            if (book == null) {
+                return new ResponseEntity(System.getenv("Book not found in ISBN service"), HttpStatus.BAD_REQUEST);
+            }
+            bookRepository.save(book);
+        }
+        return new ResponseEntity<>(book, HttpStatus.OK);
+    }
 }
+

@@ -15,4 +15,6 @@ public interface BookRepository extends Repository<Book, Long> {
     Book save(Book book);
 
     void deleteById(Long id);
+
+    Book findByIsbn(String isbn);
 }
