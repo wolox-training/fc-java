@@ -21,7 +21,7 @@ public class User {
     @Column(nullable = false)
     private LocalDate birthdate;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
     private List<Book> books;
 
     public User() {}
@@ -64,5 +64,13 @@ public class User {
 
     public void setBooks(List<Book> books) {
         this.books = Preconditions.checkNotNull(books, "Books cannot be empy");
+    }
+
+    public void addBook(Book book) {
+        this.books.add(book);
+    }
+
+    public void removeBook(Book book) {
+        this.books.remove(book);
     }
 }
