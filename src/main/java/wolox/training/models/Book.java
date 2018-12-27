@@ -1,5 +1,7 @@
 package wolox.training.models;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
 
 @Entity

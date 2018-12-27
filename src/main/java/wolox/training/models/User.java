@@ -1,5 +1,6 @@
 package wolox.training.models;
 
+import com.google.common.base.Preconditions;
 import wolox.training.exceptions.BookAlreadyOwnedException;
 import javax.persistence.*;
 import java.time.LocalDate;
