@@ -1,5 +1,6 @@
 package wolox.training.controllers;
 
+import org.h2.store.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import wolox.training.exceptions.BookNotFoundException;
 import wolox.training.models.Book;
 import wolox.training.repositories.BookRepository;
 import wolox.training.services.OpenLibraryService;
+
+import java.util.List;
 
 
 @RestController
@@ -62,6 +65,13 @@ public class BooksController {
             bookRepository.save(book);
         }
         return new ResponseEntity<>(book, HttpStatus.OK);
+    }
+
+    @GetMapping("/query")
+    public List<Book> findByYearGenrePublisher(@RequestParam(name="year", required=true) String year,
+                                               @RequestParam(name="genre", required=true) String name,
+                                               @RequestParam(name="publisher", required=true) String publisher) {
+        return bookRepository.findByYearAndGenreAndPublisher(year, name, publisher);
     }
 }
 
