@@ -1,9 +1,6 @@
 package wolox.training.repositories;
 
-import org.h2.store.Page;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
-import org.springframework.data.repository.query.Param;
 import wolox.training.models.Book;
 import java.util.List;
 import java.util.Optional;
