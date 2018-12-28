@@ -1,11 +1,13 @@
 package wolox.training.models;
 
+import com.google.common.base.Preconditions;
 import wolox.training.exceptions.BookAlreadyOwnedException;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
