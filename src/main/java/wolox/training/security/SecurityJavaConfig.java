@@ -24,6 +24,12 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.POST, "/api/books")
+            .and().ignoring().antMatchers(HttpMethod.POST, "/api/users");
+    }
+
+    @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.authenticationProvider(authenticationProvider);
     }

@@ -27,14 +27,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        User new_user = new User();
-        new_user.setBooks(new ArrayList<Book>());
-        new_user.setName("facu");
-        new_user.setUsername("facu.compe");
-        new_user.setBirthdate(LocalDate.now());
-        new_user.setPassword("password");
-        userRepository.save(new_user);
-
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
         User user = userRepository.findByName(name);

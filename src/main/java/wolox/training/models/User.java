@@ -2,12 +2,13 @@ package wolox.training.models;
 
 import com.google.common.base.Preconditions;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+import wolox.training.exceptions.BookAlreadyOwnedException;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -89,8 +90,12 @@ public class User {
         this.role = role;
     }
 
-    public void addBook(Book book) {
-        this.books.add(book);
+    public void addBook(Book book) throws BookAlreadyOwnedException {
+        if(this.books.contains(book)) {
+            throw new BookAlreadyOwnedException(book);
+        } else {
+            this.books.add(book);
+        }
     }
 
     public void removeBook(Book book) {
