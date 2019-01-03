@@ -82,6 +82,6 @@ public class UsersController {
     public List<User> findBetweenDates(@RequestParam(name="from", required=true) String from,
                                        @RequestParam(name="to", required=true) String to,
                                        @RequestParam(name="search", required = true) String search) {
-        return userRepository.findBetweenDates(LocalDate.parse(from), LocalDate.parse(to), search.toLowerCase());
+        return userRepository.findByBirthdateBetweenAndNameContainingAllIgnoreCase(LocalDate.parse(from), LocalDate.parse(to), search);
     }
 }

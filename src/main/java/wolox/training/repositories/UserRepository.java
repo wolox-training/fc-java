@@ -20,6 +20,5 @@ public interface UserRepository extends Repository<User, Long> {
 
     void deleteById(Long id);
 
-    @Query("SELECT u FROM User u WHERE lower(u.name) LIKE %:search% AND u.birthdate BETWEEN :from AND :to")
-    List<User> findBetweenDates(@Param("from")LocalDate from, @Param("to") LocalDate to, @Param("search") String search);
+    List<User> findByBirthdateBetweenAndNameContainingAllIgnoreCase(LocalDate start, LocalDate stop, String name);
 }
