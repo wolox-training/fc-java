@@ -75,7 +75,6 @@ public class BooksControllerTest {
         mvc.perform(post("/api/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonHelper.asJson(book)))
-                .andExpect(status().is(400))
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+                .andExpect(status().is(400));
     }
 }
