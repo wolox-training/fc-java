@@ -12,6 +12,9 @@ import wolox.training.models.User;
 import wolox.training.repositories.UserRepository;
 import wolox.training.repositories.BookRepository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -73,5 +76,12 @@ public class UsersController {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotFoundException(userId));
         user.removeBook(book);
+    }
+
+    @GetMapping("/query")
+    public List<User> findBetweenDates(@RequestParam(name="from", required=true) String from,
+                                       @RequestParam(name="to", required=true) String to,
+                                       @RequestParam(name="search", required = true) String search) {
+        return userRepository.findByBirthdateBetweenAndNameContainingAllIgnoreCase(LocalDate.parse(from), LocalDate.parse(to), search);
     }
 }
