@@ -9,6 +9,7 @@ import wolox.training.models.Book;
 import wolox.training.repositories.BookRepository;
 import wolox.training.services.OpenLibraryService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -35,7 +36,8 @@ public class BooksController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book create(@RequestBody Book book) {
+    public Book create(HttpServletResponse response, @RequestBody Book book) {
+        response.setContentType("application/json");
         return bookRepository.save(book);
     }
 
