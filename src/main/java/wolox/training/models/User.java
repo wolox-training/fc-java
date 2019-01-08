@@ -1,6 +1,7 @@
 package wolox.training.models;
 
 import com.google.common.base.Preconditions;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import wolox.training.exceptions.BookAlreadyOwnedException;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -26,6 +27,11 @@ public class User {
     @OneToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
     private List<Book> books;
 
+    @Column(nullable = false)
+    private String password;
+
+    private String role = "USER";
+
     public User() {}
 
     public long getId() {
@@ -48,6 +54,10 @@ public class User {
         return books;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -66,6 +76,22 @@ public class User {
 
     public void setBooks(List<Book> books) {
         this.books = Preconditions.checkNotNull(books, "Books cannot be empy");
+    }
+
+    public void setPassword(String password) {
+        this.password = new BCryptPasswordEncoder().encode(password);
+    }
+
+    public boolean validPassword(String password) {
+        return new BCryptPasswordEncoder().matches(password, this.password);
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void addBook(Book book) throws BookAlreadyOwnedException {
