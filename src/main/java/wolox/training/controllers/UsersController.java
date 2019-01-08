@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import wolox.training.exceptions.BookAlreadyOwnedException;
 import wolox.training.exceptions.BookNotFoundException;
 import wolox.training.exceptions.UserNotFoundException;
+import wolox.training.jsons.requests.PasswordUpdate;
 import wolox.training.models.Book;
 import wolox.training.models.User;
 import wolox.training.repositories.UserRepository;
 import wolox.training.repositories.BookRepository;
+
+import java.time.LocalDate;
+import java.util.List;
 
 
 @RestController
@@ -50,10 +54,21 @@ public class UsersController {
     }
 
     @PutMapping("/{id}")
-    public User updateBook(@RequestBody User user, @PathVariable Long id) {
-        userRepository.findById(id)
+    public User updateUser(@RequestBody User updatedUser, @PathVariable Long id) {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+        user.setName(updatedUser.getName());
+        user.setUsername(updatedUser.getUsername());
+        user.setBirthdate(updatedUser.getBirthdate());
+        user.setBooks(updatedUser.getBooks());
         return userRepository.save(user);
+    }
+
+    @PutMapping("/{id}/password")
+    public void updatePassword(@RequestBody PasswordUpdate request, @PathVariable Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        user.setPassword(request.getPassword());
     }
 
     @PostMapping("users/{id}/books")
@@ -82,5 +97,12 @@ public class UsersController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserName = authentication.getName();
         return userRepository.findByName(currentUserName);
+    }
+
+    @GetMapping("/query")
+    public List<User> findBetweenDates(@RequestParam(name="from", required=true) String from,
+                                       @RequestParam(name="to", required=true) String to,
+                                       @RequestParam(name="search", required = true) String search) {
+        return userRepository.findByBirthdateBetweenAndNameContainingAllIgnoreCase(LocalDate.parse(from), LocalDate.parse(to), search);
     }
 }

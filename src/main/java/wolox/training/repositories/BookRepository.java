@@ -17,4 +17,6 @@ public interface BookRepository extends Repository<Book, Long> {
     void deleteById(Long id);
 
     Book findByIsbn(String isbn);
+
+    List<Book> findByYearAndGenreAndPublisher(String year, String genre, String publisher);
 }

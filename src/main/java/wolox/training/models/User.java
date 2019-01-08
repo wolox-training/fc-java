@@ -54,6 +54,10 @@ public class User {
         return books;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
