@@ -10,6 +10,7 @@ import wolox.training.repositories.BookRepository;
 import wolox.training.services.OpenLibraryService;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 @RestController
@@ -66,5 +67,11 @@ public class BooksController {
         }
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
-}
 
+    @GetMapping("/query")
+    public List<Book> findByYearGenrePublisher(@RequestParam(name="year", required=true) String year,
+                                               @RequestParam(name="genre", required=true) String name,
+                                               @RequestParam(name="publisher", required=true) String publisher) {
+        return bookRepository.findByYearAndGenreAndPublisher(year, name, publisher);
+    }
+}
